@@ -1,0 +1,90 @@
+{
+  "version": 3,
+  "targets": {
+    "net6.0": {
+      "EindOpdrachtGentseFeesten.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/EindOpdrachtGentseFeesten.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/EindOpdrachtGentseFeesten.Domain.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "EindOpdrachtGentseFeesten.Domain/1.0.0": {
+      "type": "project",
+      "path": "../EindOpdrachtGentseFeesten.Domain/EindOpdrachtGentseFeesten.Domain.csproj",
+      "msbuildProject": "../EindOpdrachtGentseFeesten.Domain/EindOpdrachtGentseFeesten.Domain.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net6.0": [
+      "EindOpdrachtGentseFeesten.Domain >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\jordi\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\Users\\jordi\\OneDrive\\Documenten\\GitHub\\Eindopdracht_Programmeren_JordiVanMigerode\\EindOpdrachtGentseFeesten\\EindOpdrachtGentseFeesten.Presentation\\EindOpdrachtGentseFeesten.Presentation.csproj",
+      "projectName": "EindOpdrachtGentseFeesten.Presentation",
+      "projectPath": "C:\\Users\\jordi\\OneDrive\\Documenten\\GitHub\\Eindopdracht_Programmeren_JordiVanMigerode\\EindOpdrachtGentseFeesten\\EindOpdrachtGentseFeesten.Presentation\\EindOpdrachtGentseFeesten.Presentation.csproj",
+      "packagesPath": "C:\\Users\\jordi\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\jordi\\OneDrive\\Documenten\\GitHub\\Eindopdracht_Programmeren_JordiVanMigerode\\EindOpdrachtGentseFeesten\\EindOpdrachtGentseFeesten.Presentation\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\jordi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net6.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "projectReferences": {
+            "C:\\Users\\jordi\\OneDrive\\Documenten\\GitHub\\Eindopdracht_Programmeren_JordiVanMigerode\\EindOpdrachtGentseFeesten\\EindOpdrachtGentseFeesten.Domain\\EindOpdrachtGentseFeesten.Domain.csproj": {
+              "projectPath": "C:\\Users\\jordi\\OneDrive\\Documenten\\GitHub\\Eindopdracht_Programmeren_JordiVanMigerode\\EindOpdrachtGentseFeesten\\EindOpdrachtGentseFeesten.Domain\\EindOpdrachtGentseFeesten.Domain.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net6.0": {
+        "targetAlias": "net6.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
