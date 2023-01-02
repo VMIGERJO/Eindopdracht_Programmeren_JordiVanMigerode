@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EindOpdrachtGentseFeesten.Domain\EindOpdrachtGentseFeesten.Domain.csproj" />
+    <ProjectReference Include="..\EindOpdrachtGentseFeesten.Persistence\EindOpdrachtGentseFeesten.Persistence.csproj" />
+    <ProjectReference Include="..\EindOpdrachtGentseFeesten.PresentationWPF\EindOpdrachtGentseFeesten.PresentationWPF.csproj" />
+  </ItemGroup>
+
+</Project>

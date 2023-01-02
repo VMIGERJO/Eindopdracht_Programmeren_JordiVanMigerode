@@ -10,7 +10,6 @@
   <ItemGroup>
     <ProjectReference Include="..\EindOpdrachtGentseFeesten.Domain\EindOpdrachtGentseFeesten.Domain.csproj" />
     <ProjectReference Include="..\EindOpdrachtGentseFeesten.Persistence\EindOpdrachtGentseFeesten.Persistence.csproj" />
-    <ProjectReference Include="..\EindOpdrachtGentseFeesten.Presentation\EindOpdrachtGentseFeesten.Presentation.csproj" />
   </ItemGroup>
 
 </Project>

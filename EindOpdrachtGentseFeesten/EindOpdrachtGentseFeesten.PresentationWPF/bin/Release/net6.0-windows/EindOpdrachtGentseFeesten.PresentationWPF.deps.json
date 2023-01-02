@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "EindOpdrachtGentseFeesten.PresentationWPF/1.0.0": {
+        "dependencies": {
+          "EindOpdrachtGentseFeesten.Domain": "1.0.0"
+        },
+        "runtime": {
+          "EindOpdrachtGentseFeesten.PresentationWPF.dll": {}
+        }
+      },
+      "EindOpdrachtGentseFeesten.Domain/1.0.0": {
+        "runtime": {
+          "EindOpdrachtGentseFeesten.Domain.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "EindOpdrachtGentseFeesten.PresentationWPF/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "EindOpdrachtGentseFeesten.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

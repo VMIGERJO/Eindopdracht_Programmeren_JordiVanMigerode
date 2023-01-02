@@ -5,7 +5,7 @@ namespace EindOpdrachtGentseFeesten.Presentation
 {
     public class GentseFeestenApplication
     {
-        private DomainController _domainController;
+        private readonly DomainController _domainController;
 
         public GentseFeestenApplication(DomainController domainController)
         {

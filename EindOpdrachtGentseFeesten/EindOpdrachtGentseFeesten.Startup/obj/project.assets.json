@@ -664,19 +664,6 @@
         "runtime": {
           "bin/placeholder/EindOpdrachtGentseFeesten.Persistence.dll": {}
         }
-      },
-      "EindOpdrachtGentseFeesten.Presentation/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
-        "dependencies": {
-          "EindOpdrachtGentseFeesten.Domain": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/EindOpdrachtGentseFeesten.Presentation.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/EindOpdrachtGentseFeesten.Presentation.dll": {}
-        }
       }
     }
   },
@@ -2466,18 +2453,12 @@
       "type": "project",
       "path": "../EindOpdrachtGentseFeesten.Persistence/EindOpdrachtGentseFeesten.Persistence.csproj",
       "msbuildProject": "../EindOpdrachtGentseFeesten.Persistence/EindOpdrachtGentseFeesten.Persistence.csproj"
-    },
-    "EindOpdrachtGentseFeesten.Presentation/1.0.0": {
-      "type": "project",
-      "path": "../EindOpdrachtGentseFeesten.Presentation/EindOpdrachtGentseFeesten.Presentation.csproj",
-      "msbuildProject": "../EindOpdrachtGentseFeesten.Presentation/EindOpdrachtGentseFeesten.Presentation.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
       "EindOpdrachtGentseFeesten.Domain >= 1.0.0",
-      "EindOpdrachtGentseFeesten.Persistence >= 1.0.0",
-      "EindOpdrachtGentseFeesten.Presentation >= 1.0.0"
+      "EindOpdrachtGentseFeesten.Persistence >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -2512,9 +2493,6 @@
             },
             "C:\\Users\\jordi\\OneDrive\\Documenten\\GitHub\\Eindopdracht_Programmeren_JordiVanMigerode\\EindOpdrachtGentseFeesten\\EindOpdrachtGentseFeesten.Persistence\\EindOpdrachtGentseFeesten.Persistence.csproj": {
               "projectPath": "C:\\Users\\jordi\\OneDrive\\Documenten\\GitHub\\Eindopdracht_Programmeren_JordiVanMigerode\\EindOpdrachtGentseFeesten\\EindOpdrachtGentseFeesten.Persistence\\EindOpdrachtGentseFeesten.Persistence.csproj"
-            },
-            "C:\\Users\\jordi\\OneDrive\\Documenten\\GitHub\\Eindopdracht_Programmeren_JordiVanMigerode\\EindOpdrachtGentseFeesten\\EindOpdrachtGentseFeesten.Presentation\\EindOpdrachtGentseFeesten.Presentation.csproj": {
-              "projectPath": "C:\\Users\\jordi\\OneDrive\\Documenten\\GitHub\\Eindopdracht_Programmeren_JordiVanMigerode\\EindOpdrachtGentseFeesten\\EindOpdrachtGentseFeesten.Presentation\\EindOpdrachtGentseFeesten.Presentation.csproj"
             }
           }
         }
