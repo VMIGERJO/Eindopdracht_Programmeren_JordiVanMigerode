@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace EindOpdrachtGentseFeesten.Domain.Model
 {
-    public class EvenementInstantie : Evenement
+    public class BaseLevelEvenement : Evenement
     {
-        public EvenementInstantie(string id, string name, string description, string parentEvenement, DateTime start, DateTime end, int price) : base(id, name, description, parentEvenement)
+        public BaseLevelEvenement(string id, string name, string description, string parentEvenement, List<string> childIds, DateTime start, DateTime end, int price) : base(id, name, description, parentEvenement, childIds)
         {
             this.Start = start;
             this.End = end;

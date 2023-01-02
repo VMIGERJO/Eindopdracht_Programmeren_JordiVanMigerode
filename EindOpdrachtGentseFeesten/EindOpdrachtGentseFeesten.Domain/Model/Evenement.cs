@@ -10,22 +10,36 @@ namespace EindOpdrachtGentseFeesten.Domain.Model
     {
         private readonly string _id;
         public string Id { get { return _id; } }
-        public Evenement(string id, string name, string description, string parentEvenement) //List<string> ancestry//
+        public Evenement(string id, string name, string description, string parentId, List<String> childIds)
         {
             _id = id;
             this.Name = name;
             this.Description = description;
-            this.ParentEvenement = parentEvenement;
-            //this.Ancestry = ancestry;///
+            this.ParentId = parentId;
+            this.ChildIds = childIds;
+
         }
 
         public string Name { get; init; }
         public string Description { get; init; }
-        public virtual DateTime Start { get; init; }
-        public virtual DateTime End { get; init; }
-        public virtual int Price { get; init; }
-        public string ParentEvenement { get; init; }
-        //public List<string> Ancestry {get ; init; }//
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
+        public int Price { get; set; }
+        public string ParentId { get; init; }
+        public List<String> ChildIds { get; init; }
+        public void CalculateStart(List<BaseLevelEvenement> baseLevelDescendants)
+        {
+            this.Start = baseLevelDescendants.Select(d => d.Start).Min();
+        }
+        public void CalculateEnd(List<BaseLevelEvenement> baseLevelDescendants)
+        {
+            this.End = baseLevelDescendants.Select(d => d.End).Max();
+        }
+
+        public void CalculatePrice(List<BaseLevelEvenement> baseLevelDescendants)
+        {
+            this.Price = baseLevelDescendants.Select(d => d.Price).Sum();
+        }
 
         public override bool Equals(object? obj)
         {

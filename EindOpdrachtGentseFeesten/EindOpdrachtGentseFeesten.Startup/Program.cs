@@ -3,7 +3,6 @@ using EindOpdrachtGentseFeesten.Domain;
 using EindOpdrachtGentseFeesten.Presentation;
 
 
-EvenementMapper evenementMapper = new EvenementMapper();
-EvenementVerzamelingMapper evenementVerzamelingMapper = new EvenementVerzamelingMapper();
-DomainController domain = new DomainController(evenementMapper, evenementVerzamelingMapper);
+EvenementMapper mapper  = new EvenementMapper();
+DomainController domain = new DomainController(mapper);
 GentseFeestenApplication app = new GentseFeestenApplication(domain);

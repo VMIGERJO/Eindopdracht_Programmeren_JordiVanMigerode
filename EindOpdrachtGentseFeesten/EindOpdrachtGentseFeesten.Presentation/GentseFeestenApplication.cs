@@ -10,6 +10,7 @@ namespace EindOpdrachtGentseFeesten.Presentation
         public GentseFeestenApplication(DomainController domainController)
         {
             _domainController = domainController;
+
             foreach (Evenement evenement in _domainController.GetAllTopLevelEvenementVerzamelingen())
             {
                 ShowInfo(evenement);
@@ -23,23 +24,28 @@ namespace EindOpdrachtGentseFeesten.Presentation
                 ShowInfo(evenement);
             }
 
+            Console.WriteLine("Geef een Id in:");
+            string id2 = Console.ReadLine();
 
-        }
-        public void ShowInfo(Evenement evenement)
-        {
-            Console.WriteLine($"Name: {evenement.Name}");
-            Console.WriteLine($"Id: {evenement.Id}");
-            Console.WriteLine($"Description: {evenement.Description}");
-            Console.WriteLine();
-            if (evenement is EvenementInstantie e)
+            foreach (Evenement evenement in _domainController.GetChildren(id2))
             {
-                Console.WriteLine($"Start: {e.Start}");
-                Console.WriteLine($"Einde: {e.End}");
-                Console.WriteLine($"Prijs: {e.Price}");
+                ShowInfo(evenement);
             }
+
+
+        }
+        public static void ShowInfo(Evenement e)
+        {
+            Console.WriteLine($"Name: {e.Name}");
+            Console.WriteLine($"Id: {e.Id}");
+            Console.WriteLine($"Description: {e.Description}");
+            Console.WriteLine($"Start: {e.Start}");
+            Console.WriteLine($"Einde: {e.End}");
+            Console.WriteLine($"Prijs: {e.Price}");
             Console.WriteLine();
         }
 
-        
+
+
     }
 }

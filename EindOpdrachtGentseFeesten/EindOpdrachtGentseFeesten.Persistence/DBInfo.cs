@@ -9,8 +9,7 @@ namespace EindOpdrachtGentseFeesten.Persistence
     internal static class DBInfo
     {
         public const string ConnectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=GentseFeestenEvents;Integrated Security=True;Encrypt=False";
-        public const string EvenementTableName = "EventOccurence";
-        public const string EvenementGroepTableName = "EventCollection";
+        public const string EvenementTableName = "GentseFeestenInt";
     }
     
 }

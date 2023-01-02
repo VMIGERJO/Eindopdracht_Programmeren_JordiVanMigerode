@@ -21,16 +21,16 @@ namespace EindOpdrachtGentseFeesten.Domain.Model
             }
         }
 
-        private int CalculateTotalPrice(List <Evenement> evenementen)
+        private int CalculateTotalPrice()
         {
             int totalPrice = 0;
-            foreach (var evenement in evenementen)
+            foreach (Evenement evenement in _evenementen)
             {
                 totalPrice += evenement.Price;
             };
             return totalPrice;
         }
 
-        public int TotalPrice { get => CalculateTotalPrice(this._evenementen); }
+        public int TotalPrice { get => CalculateTotalPrice(); }
     }
 }

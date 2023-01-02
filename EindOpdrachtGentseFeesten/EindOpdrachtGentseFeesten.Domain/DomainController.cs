@@ -5,21 +5,45 @@ namespace EindOpdrachtGentseFeesten.Domain
 {
     public class DomainController
     {
-        private readonly IEvenementRepository _evenementRepository;
-        private readonly IEvenementVerzamelingRepository _evenementVerzamelingRepository;
+        private readonly IEvenementRepository _repo;
 
-        public DomainController(IEvenementRepository evenementRepository, IEvenementVerzamelingRepository evenementVerzamelingRepository)
+        public DomainController(IEvenementRepository repo)
         {
-            _evenementRepository = evenementRepository;
-            _evenementVerzamelingRepository = evenementVerzamelingRepository;
+            _repo = repo;
         }
-        public List<Evenement> GetChildren(string parentId)
+        public List<Evenement> GetChildren(string id)
         {
-            return _evenementVerzamelingRepository.GetChildren(parentId);
+            List<Evenement> children = new List<Evenement>();
+            List<HigherLevelEvenement> higherLevelChildren = _repo.GetHigherLevelChildEvenementen(id);
+            if (higherLevelChildren.Any())
+            {
+                foreach (HigherLevelEvenement evenement in higherLevelChildren)
+                {
+                    List<BaseLevelEvenement> descendants = _repo.GetBaseLevelChildEvenementen(evenement.Id);
+                    evenement.CalculateStart(descendants);
+                    evenement.CalculateEnd(descendants);
+                    evenement.CalculatePrice(descendants);
+                }
+                children.AddRange(higherLevelChildren);
+            }
+            List<BaseLevelEvenement> baseLevelChildren = _repo.GetBaseLevelChildEvenementen(id);
+            children.AddRange(baseLevelChildren);
+            return children;
         }
-        public List<EvenementVerzameling> GetAllTopLevelEvenementVerzamelingen()
+        public List<HigherLevelEvenement> GetAllTopLevelEvenementVerzamelingen()
         {
-            return _evenementVerzamelingRepository.GetAllTopLevelEvenementVerzamelingen();
+            List<HigherLevelEvenement> topLevelEvenementen = _repo.GetAllTopLevelEvenementen();
+            if (topLevelEvenementen.Any())
+            {
+                foreach (HigherLevelEvenement evenement in topLevelEvenementen)
+                {
+                    List<BaseLevelEvenement> descendants = _repo.GetAllBaseLevelDescendants(evenement.Id);
+                    evenement.CalculateStart(descendants);
+                    evenement.CalculateEnd(descendants);
+                    evenement.CalculatePrice(descendants);
+                }
+            }
+            return topLevelEvenementen;
         }
 
     }
