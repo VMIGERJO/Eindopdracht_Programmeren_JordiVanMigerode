@@ -8,11 +8,8 @@ namespace EindOpdrachtGentseFeesten.Domain.Model
 {
     public class BaseLevelEvenement : Evenement
     {
-        public BaseLevelEvenement(string id, string name, string description, string parentEvenement, List<string> childIds, DateTime start, DateTime end, int price) : base(id, name, description, parentEvenement, childIds)
+        public BaseLevelEvenement(string id, string name, string description, string parentId, List<string> childIds, DateTime start, DateTime end, int price) : base(id, name, description, parentId, childIds, start, end, price)
         {
-            this.Start = start;
-            this.End = end;
-            this.Price = price;
         }
     }
 }

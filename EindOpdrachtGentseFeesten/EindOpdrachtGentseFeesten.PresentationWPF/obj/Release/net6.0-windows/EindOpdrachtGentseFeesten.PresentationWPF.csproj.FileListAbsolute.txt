@@ -18,3 +18,5 @@ C:\Users\jordi\OneDrive\Documenten\GitHub\Eindopdracht_Programmeren_JordiVanMige
 C:\Users\jordi\OneDrive\Documenten\GitHub\Eindopdracht_Programmeren_JordiVanMigerode\EindOpdrachtGentseFeesten\EindOpdrachtGentseFeesten.PresentationWPF\obj\Release\net6.0-windows\EindOpdrachtGentseFeesten.PresentationWPF.g.resources
 C:\Users\jordi\OneDrive\Documenten\GitHub\Eindopdracht_Programmeren_JordiVanMigerode\EindOpdrachtGentseFeesten\EindOpdrachtGentseFeesten.PresentationWPF\obj\Release\net6.0-windows\EvenementWindow.g.cs
 C:\Users\jordi\OneDrive\Documenten\GitHub\Eindopdracht_Programmeren_JordiVanMigerode\EindOpdrachtGentseFeesten\EindOpdrachtGentseFeesten.PresentationWPF\obj\Release\net6.0-windows\EvenementWindow.baml
+C:\Users\jordi\OneDrive\Documenten\GitHub\Eindopdracht_Programmeren_JordiVanMigerode\EindOpdrachtGentseFeesten\EindOpdrachtGentseFeesten.PresentationWPF\obj\Release\net6.0-windows\PlannerWindow.g.cs
+C:\Users\jordi\OneDrive\Documenten\GitHub\Eindopdracht_Programmeren_JordiVanMigerode\EindOpdrachtGentseFeesten\EindOpdrachtGentseFeesten.PresentationWPF\obj\Release\net6.0-windows\PlannerWindow.baml

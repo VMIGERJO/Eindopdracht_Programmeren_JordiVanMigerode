@@ -8,10 +8,12 @@ namespace EindOpdrachtGentseFeesten.Domain.Model
 {
     public class HigherLevelEvenement : Evenement
     {
-        public HigherLevelEvenement(string id, string name, string description, string parentEvenementId, List<string> childIds) : base(id, name, description, parentEvenementId, childIds)
+        public HigherLevelEvenement(string id, string name, string description, string parentEvenementId, List<string> childIds, DateTime start, DateTime end, int price) : base(id, name, description, parentEvenementId, childIds, start, end, price)
         {
 
         }
+
     }
+
     
 }

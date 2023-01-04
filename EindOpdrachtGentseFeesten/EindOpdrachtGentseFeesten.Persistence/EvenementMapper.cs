@@ -21,9 +21,10 @@ namespace EindOpdrachtGentseFeesten.Persistence
             try
             {
                 _connection.Open();
-                string query = $"SELECT TOP 30 * FROM {DBInfo.EvenementTableName} Where ParentId is NULL ORDER BY Title;";
+                string query = $"SELECT top 30 * FROM {DBInfo.EvenementTableName} Where ParentId is NULL ORDER BY Title;";
                 SqlCommand cmd = new SqlCommand(query, _connection);
-                return MapToHigherLevelEvents(cmd);
+                List<HigherLevelEvenement> topLevelEvenementen = MapToEvenementen(cmd).Cast<HigherLevelEvenement>().ToList();
+                return topLevelEvenementen;
             }
             finally
             {
@@ -31,51 +32,37 @@ namespace EindOpdrachtGentseFeesten.Persistence
             }
         }
 
-        public List<BaseLevelEvenement> GetBaseLevelChildEvenementen(string id)
+        public List<Evenement> GetChildEvenementen(string id)
         {
             try
             {
                 _connection.Open();
-                string baseLevelChildrenQuery = $"SELECT * FROM {DBInfo.EvenementTableName} WHERE ParentId = '{id}' and ChildId IS NULL";
-                SqlCommand baseLevelChildrenCmd = new SqlCommand(baseLevelChildrenQuery, _connection);
-                List<BaseLevelEvenement> baseLevelChildEvenementen = MapToBaseLevelEvents(baseLevelChildrenCmd);
+                string childrenQuery = $"SELECT * FROM {DBInfo.EvenementTableName} WHERE ParentId = @Id";
+                SqlCommand childrenCommand = new SqlCommand(childrenQuery, _connection);
+                childrenCommand.Parameters.Add(new SqlParameter("@Id", id));
+                List<Evenement> childEvenementen = MapToEvenementen(childrenCommand);
 
-                return baseLevelChildEvenementen;
+                return childEvenementen;
             }
             finally
             {
                 _connection.Close();
             }
         }
-
-        public List<HigherLevelEvenement> GetHigherLevelChildEvenementen(string id)
-        {
-            try
-            {
-                _connection.Open();
-                string higherLevelChildrenQuery = $"SELECT * FROM {DBInfo.EvenementTableName} WHERE ParentId = '{id}' and ChildId IS NOT NULL";
-                SqlCommand higherLevelChildrenCmd = new SqlCommand(higherLevelChildrenQuery, _connection);
-                List<HigherLevelEvenement> higherLevelChildEvenementen = MapToHigherLevelEvents(higherLevelChildrenCmd);
-                return higherLevelChildEvenementen;
-            }
-            finally
-            {
-                _connection.Close();
-            }
-        }
-
 
         public List<BaseLevelEvenement> GetAllBaseLevelDescendants(string id)
         {
             try
             {
-                string baseLevelDescendantsQuery = $"With descendants as (SELECT id, title, description, parentid, start, [end], price, ChildId FROM {DBInfo.EvenementTableName} WHERE id = '{id}'" +
+                string baseLevelDescendantsQuery = $"With descendants as (SELECT id, title, description, parentid, start, [end], price, ChildId FROM {DBInfo.EvenementTableName} WHERE id = @Id" +
                     $" UNION ALL SELECT child.id, child.title, child.description, child.parentid, child.start, child.[end], child.price, child.ChildId FROM {DBInfo.EvenementTableName}" +
                     $" child INNER JOIN descendants d ON d.id = child.ParentId)" +
                     $"SELECT * from descendants WHERE ChildId IS NULL;";
                 _connection.Open();
                 SqlCommand cmd = new SqlCommand(baseLevelDescendantsQuery, _connection);
-                return MapToBaseLevelEvents(cmd);
+                cmd.Parameters.Add(new SqlParameter("@Id", id));
+                List<BaseLevelEvenement> baseLevelDescendants = MapToEvenementen(cmd).Cast<BaseLevelEvenement>().ToList();
+                return baseLevelDescendants;
             }
             finally
             {
@@ -83,9 +70,9 @@ namespace EindOpdrachtGentseFeesten.Persistence
             }
 
         }
-        private List<BaseLevelEvenement> MapToBaseLevelEvents(SqlCommand cmd)
+        private static List<Evenement> MapToEvenementen(SqlCommand cmd)
         {
-            List<BaseLevelEvenement> baseLevelEvents = new();
+            List<Evenement> evenementen = new();
             SqlDataReader reader = cmd.ExecuteReader();
             if (reader.HasRows)
             {
@@ -99,33 +86,70 @@ namespace EindOpdrachtGentseFeesten.Persistence
                     DateTime start = reader.GetValue<DateTime>("Start");
                     DateTime end = reader.GetValue<DateTime>("End");
                     int price = reader.GetValue<int>("Price");
-
-                    BaseLevelEvenement evenement = new(id, title, description, parentEvenementId, childIds, start, end, price);
-                    baseLevelEvents.Add(evenement);
+                    
+                    if (childIds.Any())
+                    {
+                        HigherLevelEvenement higherLevelEvenement = new(id, title, description, parentEvenementId, childIds, start, end, price);
+                        evenementen.Add(higherLevelEvenement);
+                    }
+                    else
+                    {
+                        BaseLevelEvenement baseLevelEvenement = new(id, title, description, parentEvenementId, childIds, start, end, price);
+                        evenementen.Add(baseLevelEvenement);
+                    }
                 }
             }
             reader.Close();
-            return baseLevelEvents;
+            return evenementen;
         }
-        private List<HigherLevelEvenement> MapToHigherLevelEvents(SqlCommand cmd)
+
+        public void SaveToPlanner(string id)
         {
-            List<HigherLevelEvenement> higherLevelEvents = new();
-            SqlDataReader reader = cmd.ExecuteReader();
-            if (reader.HasRows)
+            try
             {
-                while (reader.Read())
-                {
-                    string id = reader.GetValue<string>("Id");
-                    string title = reader.GetValue<string>("Title");
-                    string description = reader.GetValue<string>("Description", descriptionUnavailableString);
-                    List<string> childIds = reader.GetValue<string>("ChildId", "").Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
-                    string parentEvenementId = reader.GetValue<string>("ParentId");
-                    higherLevelEvents.Add(new(id, title, description, parentEvenementId,
-                         childIds));
-                }
+                _connection.Open();
+                string updateSetPlannerToTrueQuery = $"UPDATE {DBInfo.EvenementTableName} SET OnPlanner = 1 WHERE Id = @Id";
+                SqlCommand cmd = new SqlCommand(updateSetPlannerToTrueQuery, _connection);
+                cmd.Parameters.Add(new SqlParameter("@Id", id));
+                cmd.ExecuteNonQuery();
             }
-            reader.Close();
-            return higherLevelEvents;
+            finally
+            {
+
+               _connection.Close();
+            }
+            
+        }
+        public void RemoveFromPlanner(string id)
+        {
+            try
+            {
+                _connection.Open();
+                string updateSetPlannerToFalseQuery = $"UPDATE {DBInfo.EvenementTableName} SET OnPlanner = 0 WHERE Id = @Id";
+                SqlCommand cmd = new SqlCommand(updateSetPlannerToFalseQuery, _connection);
+                cmd.Parameters.Add(new SqlParameter("@Id", id));
+                cmd.ExecuteNonQuery();
+            }
+            finally 
+            {
+
+                _connection.Close();
+            }
+        }
+
+        public List<Evenement> GetEvenementenOnPlanner()
+        {
+            try
+            {
+                _connection.Open();
+                string eventsOnPlannerQuery = "SELECT * FROM GentseFeestenInt WHERE OnPlanner = 1";
+                SqlCommand cmd = new SqlCommand(eventsOnPlannerQuery, _connection);
+                return MapToEvenementen(cmd);
+            }
+            finally
+            {
+                _connection.Close();
+            }
         }
     }
 }

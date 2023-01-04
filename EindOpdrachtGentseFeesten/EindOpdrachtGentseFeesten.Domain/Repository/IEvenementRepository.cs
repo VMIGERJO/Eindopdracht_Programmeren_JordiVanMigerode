@@ -10,9 +10,11 @@ namespace EindOpdrachtGentseFeesten.Domain.Repository
 {
     public interface IEvenementRepository 
     {
-        public List<BaseLevelEvenement> GetBaseLevelChildEvenementen(string id);
-        public List<HigherLevelEvenement> GetHigherLevelChildEvenementen(string id);
+        public List<Evenement> GetChildEvenementen(string id);
         public List<HigherLevelEvenement> GetAllTopLevelEvenementen();
         public List<BaseLevelEvenement> GetAllBaseLevelDescendants(string id);
+        public void SaveToPlanner(string id);
+        public void RemoveFromPlanner(string id);
+        public List<Evenement> GetEvenementenOnPlanner();
     }
 }

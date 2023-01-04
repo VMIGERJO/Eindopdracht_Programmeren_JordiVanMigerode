@@ -16,12 +16,13 @@ using EindOpdrachtGentseFeesten.Domain.Model;
 namespace EindOpdrachtGentseFeesten.PresentationWPF
 {
     /// <summary>
-    /// Interaction logic for Window1.xaml
+    /// Interaction logic for EvenementWindow.xaml
     /// </summary>
     public partial class EvenementWindow : Window
     {
         private const string loadingText = "Loading...";
-        private List<Evenement> _evenementenToLoad;
+        public bool triggeringShutdown = false;
+        private List<Evenement> _evenementenToLoad = new List<Evenement>();
         public EvenementWindow(List<HigherLevelEvenement> topLevelEvenementen)
         {
             InitializeComponent();
@@ -32,6 +33,8 @@ namespace EindOpdrachtGentseFeesten.PresentationWPF
             }
         }
         public event EventHandler<Evenement> EvenementExpanded;
+        public event EventHandler<Evenement> AddToPlannerSelected;
+        public event EventHandler GoToPlannerSelected;
         public List<Evenement> EvenementenToLoad
         {
             get => _evenementenToLoad;
@@ -40,46 +43,99 @@ namespace EindOpdrachtGentseFeesten.PresentationWPF
                 _evenementenToLoad = value;
             }
         }
-        public TreeViewItem CreateTreeItem(Evenement e)
+        private static TreeViewItem CreateTreeItem(Evenement e)
         {
-            TreeViewItem item = new TreeViewItem();
-            item.Header = e.ToString();
-            item.Tag = e;
-            item.Items.Add(loadingText);
+            TreeViewItem item = new TreeViewItem
+            {
+                Header = e.ToString(),
+                Tag = e
+            };
+            if (e.ChildIds.Any())
+            {
+                item.Items.Add(loadingText);
+            }
             return item;
         }
 
         private void EvenementenTrv_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-
+            var treeView = sender as TreeView;
+            TreeViewItem item = treeView.SelectedItem as TreeViewItem;
+            Evenement evenement = (Evenement)item.Tag;
+            if (evenement != null)
+            {
+                EvenementContent.ItemsSource = new List<GentseFeestenEvenementView> { new GentseFeestenEvenementView(evenement) };
+            }
         }
 
         private void EvenementTrvItem_Expanded(object sender, RoutedEventArgs e)
         {
-            TreeViewItem item = e.Source as TreeViewItem;
-            if ((item.Items.Count == 1) && ((string)item.Items[0] == loadingText))
+            TreeViewItem item = (TreeViewItem)e.OriginalSource;
+            try
             {
-                item.Items.Clear();
-                Evenement expandedEvenement;
-                if (item.Tag is HigherLevelEvenement)
+                if ((item.Items.Count == 1) && ((string)item.Items[0] == loadingText))
                 {
-                    expandedEvenement = (HigherLevelEvenement)item.Tag;
-                    EvenementExpanded.Invoke(this, expandedEvenement);
-                    try
+                    item.Items.Clear();
+                    Evenement expandedEvenement;
+                    if (item.Tag is HigherLevelEvenement)
                     {
-                        foreach (Evenement evenement in _evenementenToLoad)
-                            item.Items.Add(CreateTreeItem(evenement));
+                        expandedEvenement = (HigherLevelEvenement)item.Tag;
+                        EvenementExpanded?.Invoke(this, expandedEvenement);
+                        try
+                        {
+                            foreach (Evenement evenement in _evenementenToLoad)
+                                item.Items.Add(CreateTreeItem(evenement));
+                        }
+                        catch (Exception ex)
+                        {
+                            TextBox txtError = new TextBox();
+                            txtError.Text = "An error occurred: " + ex.Message;
+                            txtError.Style = (Style)FindResource("ErrorTextBoxStyle");
+                            this.Content = txtError;
+                        }
                     }
-                    catch (Exception ex)
-                    {
-                        TextBox txtError = new TextBox();
-                        txtError.Text = "An error occurred: " + ex.Message;
-                        txtError.Style = (Style)FindResource("ErrorTextBoxStyle");
-                        this.Content = txtError;
-                    }
+
                 }
+            }
+            catch (Exception ex)
+            {
+                TextBox txtError = new TextBox();
+                txtError.Text = "An error occurred: " + ex.Message;
+                this.Content = txtError;
+            }
+
+        }
+
+        private void EvenementContent_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+
+            var dataGrid = sender as DataGrid;
+            if (e.Column is DataGridTextColumn textColumn)
+            {
+                textColumn.ElementStyle = dataGrid.FindResource(typeof(TextBlock)) as Style;
+                e.Column.MaxWidth = 200;
+                e.Column.Width = DataGridLength.SizeToCells;
 
             }
+        }
+
+        private void AddToPlanner_Click(object sender, RoutedEventArgs e)
+        {
+            TreeViewItem item = EvenementenTrv.SelectedItem as TreeViewItem;
+            Evenement selectedEvenement = item.Tag as Evenement;
+            AddToPlannerSelected?.Invoke(this, selectedEvenement);
+
+        }
+
+        private void GoToPlanner_Click(object sender, RoutedEventArgs e)
+        {
+            GoToPlannerSelected?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void EvenementenWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            triggeringShutdown = true;
+            Application.Current.Shutdown();
         }
     }
 }

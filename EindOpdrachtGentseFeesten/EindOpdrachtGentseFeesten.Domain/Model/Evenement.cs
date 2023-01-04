@@ -6,17 +6,20 @@ using System.Threading.Tasks;
 
 namespace EindOpdrachtGentseFeesten.Domain.Model
 {
-    public class Evenement
+    public class Evenement : IComparer<Evenement>
     {
         private readonly string _id;
         public string Id { get { return _id; } }
-        public Evenement(string id, string name, string description, string parentId, List<String> childIds)
+        public Evenement(string id, string name, string description, string parentId, List<String> childIds, DateTime start, DateTime end, int price)
         {
             _id = id;
             this.Name = name;
             this.Description = description;
             this.ParentId = parentId;
             this.ChildIds = childIds;
+            this.Price = price;
+            this.Start = start;
+            this.End = end;
 
         }
 
@@ -47,10 +50,6 @@ namespace EindOpdrachtGentseFeesten.Domain.Model
             {
                 return false;
             }
-            if (obj.GetType() != typeof(Evenement))
-            {
-                return false;
-            }
             Evenement other = (Evenement)obj;
             if (this._id == other._id)
             {
@@ -71,6 +70,11 @@ namespace EindOpdrachtGentseFeesten.Domain.Model
         public override string ToString()
         {
             return Name;
+        }
+
+        public int Compare(Evenement x, Evenement y)
+        {
+            return x.Name.CompareTo(y.Name);
         }
     }
 }

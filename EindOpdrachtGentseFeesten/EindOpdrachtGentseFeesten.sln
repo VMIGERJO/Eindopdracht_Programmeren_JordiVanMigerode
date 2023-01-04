@@ -3,15 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EindOpdrachtGentseFeesten.Startup", "EindOpdrachtGentseFeesten.Startup\EindOpdrachtGentseFeesten.Startup.csproj", "{8CD4948D-339E-4820-9A84-25AFCF37F979}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EindOpdrachtGentseFeesten.Domain", "EindOpdrachtGentseFeesten.Domain\EindOpdrachtGentseFeesten.Domain.csproj", "{D85683BB-DFCC-40B2-A29A-A78542DBBD90}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EindOpdrachtGentseFeesten.Persistence", "EindOpdrachtGentseFeesten.Persistence\EindOpdrachtGentseFeesten.Persistence.csproj", "{D08E483E-2733-4574-8ACF-0A07D079D300}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EindOpdrachtGentseFeesten.StartupWPF", "EindOpdrachtGentseFeesten.StartupWPF\EindOpdrachtGentseFeesten.StartupWPF.csproj", "{2A940A63-876E-4171-89DB-3EB93749BFBE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EindOpdrachtGentseFeesten.PresentationWPF", "EindOpdrachtGentseFeesten.PresentationWPF\EindOpdrachtGentseFeesten.PresentationWPF.csproj", "{A8728908-8D04-4225-B646-2206CDCCFC14}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EindOpdrachtGentseFeesten.PresentationWPF", "EindOpdrachtGentseFeesten.PresentationWPF\EindOpdrachtGentseFeesten.PresentationWPF.csproj", "{A8728908-8D04-4225-B646-2206CDCCFC14}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,9 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8CD4948D-339E-4820-9A84-25AFCF37F979}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8CD4948D-339E-4820-9A84-25AFCF37F979}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8CD4948D-339E-4820-9A84-25AFCF37F979}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D85683BB-DFCC-40B2-A29A-A78542DBBD90}.Debug|Any CPU.ActiveCfg = Release|Any CPU
 		{D85683BB-DFCC-40B2-A29A-A78542DBBD90}.Debug|Any CPU.Build.0 = Release|Any CPU
 		{D85683BB-DFCC-40B2-A29A-A78542DBBD90}.Release|Any CPU.ActiveCfg = Release|Any CPU
